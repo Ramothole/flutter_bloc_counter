@@ -1,16 +1,27 @@
-# math
+# flutter_counter_app
 
-A new Flutter project.
+# Flutter  Counter App using Redux and BLoC
+
+A simple Flutter application demonstrating how to use the Redux pattern/ BLoC  to manage state in a counter application.
+
+## Description
+
+This application showcases a basic counter that can be incremented or decremented using the Redux state management pattern. The counter value is stored in the Redux store, and actions are dispatched to update it.
+
+## Features
+
+- Increment and decrement the counter value.
+- State management using the Redux pattern & BLoC pattern.
+- A simple and clean Flutter project structure.
+
+## Dependencies
+
+- [redux] A predictable state container.
+- [flutter_redux] Flutter bindings for Redux.
+- [flutter_bloc] used for BLoC pattern
+-[equatable] is used for value comparison in BLoC state
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Clone this repository to your local machine:
+   git clone https://github.com/Ramothole/flutter_bloc_counter.git
