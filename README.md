@@ -1,5 +1,3 @@
-# flutter_counter_app
-
 # Flutter  Counter App using Redux and BLoC
 
 A simple Flutter application demonstrating how to use the Redux pattern/ BLoC  to manage state in a counter application.
