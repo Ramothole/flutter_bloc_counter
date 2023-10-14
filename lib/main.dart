@@ -1,67 +1,76 @@
-import 'package:CounterApp/Question1/bloc/counter_bloc.dart';
+import 'package:CounterApp/Question1/home_bloc.dart';
+import 'package:CounterApp/Question2/counter_redux.dart';
+import 'package:CounterApp/Question2/home_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:redux/redux.dart';
 
 void main() {
-  runApp(const MyCounterApp());
+  final store = Store<int>(
+    counterReducer,
+    initialState: 0,
+  );
+  runApp(LittleFishApp(store: store));
 }
 
-class MyCounterApp extends StatelessWidget {
-  const MyCounterApp({super.key});
+class LittleFishApp extends StatelessWidget {
+  final Store<int> store;
+  const LittleFishApp({super.key, required this.store});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BlocProvider(
-        create: (_) => CounterBloc(),
-        child: const CounterScreen(),
-      ),
+    return const MaterialApp(
+      home: StartupScreen(),
     );
   }
 }
 
-class CounterScreen extends StatelessWidget {
-  const CounterScreen({super.key});
+class StartupScreen extends StatefulWidget {
+  const StartupScreen({super.key});
 
+  @override
+  State<StartupScreen> createState() => _StartupScreenState();
+}
+
+class _StartupScreenState extends State<StartupScreen> {
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('LittleFish BLoC Counter'),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.add),
+            icon: Icon(Icons.add),
+            label: 'Redux',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.remove),
+            label: 'BLoC',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.image_sharp),
+            icon: Icon(Icons.image_rounded),
+            label: 'Characters',
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BlocBuilder<CounterBloc, CounterState>(
-              builder: (context, state) {
-                return Text(
-                  '${state.count}',
-                  style: TextStyle(fontSize: 48.0),
-                );
-              },
-            ),
-            const SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<CounterBloc>(context).increment();
-                  },
-                  child: const Text('+ ADDITION'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<CounterBloc>(context).decrement();
-                  },
-                  child: const Text('- SUBTRACT'),
-                ),
-              ],
-            ),
-          ],
+      body: <Widget>[
+        const Center(child: ReduxCounterScreen()),
+        const Center(
+          child: BlocCounterScreen(),
         ),
-      ),
+        Container(
+          color: Colors.blue,
+          alignment: Alignment.center,
+          child: const Text('Page 3'),
+        ),
+      ][currentPageIndex],
     );
   }
 }
