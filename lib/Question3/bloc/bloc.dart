@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:CounterApp/Question3/model/Rick_and_morty_model.dart';
+import 'package:CounterApp/Question3/model/episodes_model.dart';
 import 'package:CounterApp/Question3/repository/rick_and_morty_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,7 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
 
   List<Result>? characters;
   Result? singleCharacter;
+  Episodes? episodes;
 
   RickAndMortyBloc(RickAndMortyState initialState) : super(initialState);
 
@@ -34,7 +36,7 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
 }
 
 /// Models the different states of the [RickAndMortyBloc]
-enum RickAndMortyState { loading, error, initial, success }
+enum RickAndMortyState { loading, error, initial, success, episode }
 
 /// superclass used to model all events dispatched by [RickAndMortyBloc]
 abstract class RickAndMortyEvent {
@@ -58,6 +60,23 @@ class RickAndMortyInitializeEvent extends RickAndMortyEvent {
       bloc.characters = characters.results;
 
       return RickAndMortyState.initial;
+    } on HttpException catch (e) {
+      bloc.errorMessage = e.message;
+      return RickAndMortyState.error;
+    }
+  }
+}
+
+class EpisodesDetails extends RickAndMortyEvent {
+  final int? id;
+  EpisodesDetails(this.id);
+
+  @override
+  Future<RickAndMortyState> applyAsync(RickAndMortyBloc bloc) async {
+    try {
+      Episodes episodes = await RickMortysRepository.getEpisodes(id!);
+      bloc.episodes = episodes;
+      return RickAndMortyState.episode;
     } on HttpException catch (e) {
       bloc.errorMessage = e.message;
       return RickAndMortyState.error;

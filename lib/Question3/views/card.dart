@@ -1,4 +1,5 @@
 import 'package:CounterApp/Question3/model/Rick_and_morty_model.dart';
+import 'package:CounterApp/Question3/views/episodes.dart';
 import 'package:flutter/material.dart';
 
 class CharacterCard extends StatelessWidget {
@@ -139,10 +140,14 @@ class CharacterCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.network(
-                  character.image,
-                  fit: BoxFit.cover,
-                  scale: 3,
+                ClipOval(
+                  child: Image.network(
+                    character.image,
+                    fit: BoxFit.contain,
+                    height: 50,
+                    width: 50,
+                    scale: 3,
+                  ),
                 ),
                 Container(
                   height: 8,
@@ -192,19 +197,28 @@ class CharacterCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     ElevatedButton(
+                      style:
+                          OutlinedButton.styleFrom(backgroundColor: Colors.red),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text('OK'),
+                      child: const Text('Cancel'),
                     ),
                     Container(
                       width: 8.0,
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => EpisodesWidget(
+                                episode: character.episode,
+                                image: character.image,
+                                name: character.name),
+                          ),
+                        );
                       },
-                      child: const Text('View Episodes'),
+                      child: const Text('View Episodes Details'),
                     ),
                   ],
                 ),
