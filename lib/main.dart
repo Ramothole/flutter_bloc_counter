@@ -1,7 +1,7 @@
 import 'package:CounterApp/Question1/home_bloc.dart';
 import 'package:CounterApp/Question2/counter_redux.dart';
 import 'package:CounterApp/Question2/home_redux.dart';
-import 'package:CounterApp/characters/views/ricky_morty_view.dart';
+import 'package:CounterApp/Question3/views/ricky_morty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
