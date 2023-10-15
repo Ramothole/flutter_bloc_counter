@@ -1,6 +1,7 @@
 import 'package:CounterApp/Question1/home_bloc.dart';
 import 'package:CounterApp/Question2/counter_redux.dart';
 import 'package:CounterApp/Question2/home_redux.dart';
+import 'package:CounterApp/Question3/views/ricky_morty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
@@ -65,11 +66,7 @@ class _StartupScreenState extends State<StartupScreen> {
         const Center(
           child: BlocCounterScreen(),
         ),
-        Container(
-          color: Colors.blue,
-          alignment: Alignment.center,
-          child: const Text('Page 3'),
-        ),
+        const MyRickyMortyWidget()
       ][currentPageIndex],
     );
   }
