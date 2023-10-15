@@ -7,13 +7,21 @@ class BlocCounterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BLoC Pattern'),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage("assets/background.jpeg"), fit: BoxFit.cover),
       ),
-      body: BlocProvider(
-        create: (_) => CounterBloc(),
-        child: const BlocCounterWidget(),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('BLoC Pattern'),
+        ),
+        body: BlocProvider(
+          create: (_) => CounterBloc(),
+          child: const BlocCounterWidget(),
+        ),
       ),
     );
   }
@@ -32,11 +40,11 @@ class BlocCounterWidget extends StatelessWidget {
             builder: (context, count) {
               return Text(
                 '$count',
-                style:const TextStyle(fontSize: 48.0),
+                style: const TextStyle(fontSize: 48.0, color: Colors.white),
               );
             },
           ),
-         const SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -44,13 +52,19 @@ class BlocCounterWidget extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<CounterBloc>(context).increment();
                 },
-                child: const Text('+'),
+                child: Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/rick.png"),
+                          fit: BoxFit.cover),
+                    ),
+                    child: const Text('ADD')),
               ),
               ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<CounterBloc>(context).decrement();
                 },
-                child:const  Text('-'),
+                child: const Text('MINUS'),
               ),
             ],
           ),
