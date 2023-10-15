@@ -17,4 +17,15 @@ class RickMortysRepository {
       rethrow;
     }
   }
+
+  static Future<Result> getSingleCharacter(int id) async {
+    try {
+      Response response = await http.get(
+        Uri.parse("https://rickandmortyapi.com/api/character/$id"),
+      );
+      return Result.fromJson(json.decode(response.body));
+    } on HttpException {
+      rethrow;
+    }
+  }
 }

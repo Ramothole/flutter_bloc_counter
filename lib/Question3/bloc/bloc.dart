@@ -16,6 +16,7 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
   String? reasonMessage;
 
   List<Result>? characters;
+  Result? singleCharacter;
 
   RickAndMortyBloc(RickAndMortyState initialState) : super(initialState);
 
@@ -33,7 +34,7 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
 }
 
 /// Models the different states of the [RickAndMortyBloc]
-enum RickAndMortyState { loading, error, initial }
+enum RickAndMortyState { loading, error, initial, success }
 
 /// superclass used to model all events dispatched by [RickAndMortyBloc]
 abstract class RickAndMortyEvent {
@@ -57,6 +58,23 @@ class RickAndMortyInitializeEvent extends RickAndMortyEvent {
       bloc.characters = characters.results;
 
       return RickAndMortyState.initial;
+    } on HttpException catch (e) {
+      bloc.errorMessage = e.message;
+      return RickAndMortyState.error;
+    }
+  }
+}
+
+class CharacterDetails extends RickAndMortyEvent {
+  final int? id;
+  CharacterDetails(this.id);
+
+  @override
+  Future<RickAndMortyState> applyAsync(RickAndMortyBloc bloc) async {
+    try {
+      Result characters = await RickMortysRepository.getSingleCharacter(id!);
+      bloc.singleCharacter = characters;
+      return RickAndMortyState.success;
     } on HttpException catch (e) {
       bloc.errorMessage = e.message;
       return RickAndMortyState.error;
