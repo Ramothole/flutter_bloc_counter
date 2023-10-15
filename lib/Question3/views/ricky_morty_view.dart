@@ -1,6 +1,8 @@
 import 'package:CounterApp/Question3/bloc/bloc.dart';
 import 'package:CounterApp/Question3/model/Rick_and_morty_model.dart';
+import 'package:CounterApp/Question3/model/single_character_model.dart';
 import 'package:CounterApp/Question3/repository/rick_and_morty_repo.dart';
+import 'package:CounterApp/Question3/views/character_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,7 +116,6 @@ class _MyRickyMortyWidgetState extends State<MyRickyMortyWidget> {
     if (bloc == null || bloc?.characters == null) {
       return _loading();
     }
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
