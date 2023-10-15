@@ -2,14 +2,19 @@ import 'package:CounterApp/Question1/home_bloc.dart';
 import 'package:CounterApp/Question2/counter_redux.dart';
 import 'package:CounterApp/Question2/home_redux.dart';
 import 'package:CounterApp/Question3/views/ricky_morty_view.dart';
+import 'package:CounterApp/Question4/network_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
-void main() {
+void main() async {
   final store = Store<int>(
     counterReducer,
     initialState: 0,
   );
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Check internet connectivity and display a toast message
+  await checkInternetConnectivity();
   runApp(LittleFishApp(store: store));
 }
 
@@ -46,12 +51,12 @@ class _StartupScreenState extends State<StartupScreen> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.add),
-            icon: Icon(Icons.add),
+            selectedIcon: Icon(Icons.pattern),
+            icon: Icon(Icons.pattern),
             label: 'Redux',
           ),
           NavigationDestination(
-            icon: Icon(Icons.remove),
+            icon: Icon(Icons.pattern),
             label: 'BLoC',
           ),
           NavigationDestination(
