@@ -5,7 +5,7 @@ class CharacterDetailsModal extends StatelessWidget {
   final String status;
   final String species;
 
-  const CharacterDetailsModal({
+  const CharacterDetailsModal({super.key, 
     required this.name,
     required this.status,
     required this.species,
@@ -15,6 +15,7 @@ class CharacterDetailsModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(name),
       ),
       body: Padding(
