@@ -43,7 +43,6 @@ abstract class RickAndMortyEvent {
   Future<RickAndMortyState> applyAsync(RickAndMortyBloc bloc);
 }
 
-/// Gets the QR code of this stock order and the date that it expires, then assign
 /// the relevant [RickAndMortyBloc] instance's field accordingly before returning
 /// an instance of [RickAndMortyState.initial].
 ///
